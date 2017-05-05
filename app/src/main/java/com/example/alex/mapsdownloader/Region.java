@@ -8,7 +8,8 @@ public class Region {
     private String downloadPrefix;
     private String downloadSuffix;
     private boolean map = true;
-    private ArrayList<Region> subregions;
+    private Region parent;
+    private ArrayList<Region> subregions = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -42,11 +43,19 @@ public class Region {
         this.map = map;
     }
 
+    public Region getParent() {
+        return parent;
+    }
+
+    public void setParent(Region parent) {
+        this.parent = parent;
+    }
+
     public ArrayList<Region> getSubregions() {
         return subregions;
     }
 
-    public void setSubregions(ArrayList<Region> subregions) {
-        this.subregions = subregions;
+    public void addSubregion(Region subregion) {
+        subregions.add(subregion);
     }
 }
