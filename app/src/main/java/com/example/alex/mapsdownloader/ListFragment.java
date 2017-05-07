@@ -9,7 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ListFragment extends Fragment {
+
+    private List<Integer> path;
 
     public ListFragment() {
         // Required empty public constructor
@@ -19,6 +24,11 @@ public class ListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
 
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey("path")) {
+            path = bundle.getIntegerArrayList("path");
+        } else path = new ArrayList<>();
+
         RecyclerView regsList = (RecyclerView) view.findViewById(R.id.regions_list);
         regsList.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -26,7 +36,7 @@ public class ListFragment extends Fragment {
         DividerItemDecoration did = new DividerItemDecoration(regsList.getContext(), layoutManager.getOrientation());
         regsList.addItemDecoration(did);
 
-        RegionsAdapter adapter = new RegionsAdapter(Parser.getRegions(getContext()));
+        RegionsAdapter adapter = new RegionsAdapter(Parser.getRegions(path));
         regsList.setAdapter(adapter);
 
         return view;

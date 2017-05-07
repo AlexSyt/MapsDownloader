@@ -2,6 +2,7 @@ package com.example.alex.mapsdownloader;
 
 import android.content.Context;
 import android.content.res.XmlResourceParser;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -9,13 +10,33 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Parser {
 
     private static final String TAG = Parser.class.getSimpleName();
+    private static ArrayList<Region> regions;
 
-    public static ArrayList<Region> getRegions(Context context) {
-        ArrayList<Region> regions = new ArrayList<>();
+    public static void loadData(Context context) {
+        if (regions == null) parse(context);
+    }
+
+    @Nullable
+    public static ArrayList<Region> getRegions(List<Integer> path) {
+        if (path.size() == 0 || regions == null) return regions;
+        else {
+            ArrayList<Region> res = new ArrayList<>();
+            for (int i = 0; i < path.size(); i++) {
+                if (i == 0) res = regions.get(path.get(i)).getSubregions();
+                else res = res.get(path.get(i)).getSubregions();
+            }
+            return res;
+        }
+    }
+
+    private static void parse(Context context) {
+        regions = new ArrayList<>();
         XmlResourceParser parser = context.getResources().getXml(R.xml.data);
 
         try {
@@ -48,6 +69,7 @@ public class Parser {
 
                     if (parser.getDepth() == 2) {
                         regions.add(newReg);
+                        Collections.sort(regions);
                     } else {
                         current.addSubregion(newReg);
                         newReg.setParent(current);
@@ -66,8 +88,6 @@ public class Parser {
         } catch (IOException e) {
             Log.e(TAG, "Cannot parse xml", e);
         }
-
-        return regions;
     }
 }
 

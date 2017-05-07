@@ -8,8 +8,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class RegionsAdapter extends RecyclerView.Adapter<RegionsAdapter.RegionViewHolder> {
@@ -17,12 +15,6 @@ public class RegionsAdapter extends RecyclerView.Adapter<RegionsAdapter.RegionVi
     private final List<Region> regions;
 
     public RegionsAdapter(List<Region> regions) {
-        Collections.sort(regions, new Comparator<Region>() {
-            @Override
-            public int compare(Region reg1, Region reg2) {
-                return reg1.getName().compareTo(reg2.getName());
-            }
-        });
         this.regions = regions;
     }
 
@@ -38,10 +30,13 @@ public class RegionsAdapter extends RecyclerView.Adapter<RegionsAdapter.RegionVi
 
         if (current.getSubregions().size() > 0) {
             holder.icon.setBackgroundResource(R.mipmap.ic_world_globe_dark);
+            holder.download.setVisibility(View.GONE);
         } else {
             holder.icon.setBackgroundResource(R.mipmap.ic_map);
-            holder.download.setVisibility(View.VISIBLE);
-            holder.download.setBackgroundResource(R.mipmap.ic_action_import);
+            if (current.isMap()) {
+                holder.download.setVisibility(View.VISIBLE);
+                holder.download.setBackgroundResource(R.mipmap.ic_action_import);
+            }
         }
 
         holder.title.setText(current.getName());

@@ -1,8 +1,11 @@
 package com.example.alex.mapsdownloader;
 
-import java.util.ArrayList;
+import android.support.annotation.NonNull;
 
-public class Region {
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Region implements Comparable<Region> {
 
     private String name;
     private String downloadPrefix;
@@ -57,5 +60,11 @@ public class Region {
 
     public void addSubregion(Region subregion) {
         subregions.add(subregion);
+        Collections.sort(subregions);
+    }
+
+    @Override
+    public int compareTo(@NonNull Region reg) {
+        return name.compareTo(reg.getName());
     }
 }

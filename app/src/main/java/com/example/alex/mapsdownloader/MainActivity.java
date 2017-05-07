@@ -11,6 +11,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Parser.loadData(this);
+
         IndicatorFragment indicatorFragment = new IndicatorFragment();
         ListFragment listFragment = new ListFragment();
 
