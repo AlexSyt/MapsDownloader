@@ -1,10 +1,7 @@
 package com.example.alex.mapsdownloader;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +9,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListFragment extends Fragment {
+public class ListFragment extends android.support.v4.app.ListFragment {
 
     private List<Integer> path;
 
@@ -21,24 +18,20 @@ public class ListFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list, container, false);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey("path")) {
             path = bundle.getIntegerArrayList("path");
         } else path = new ArrayList<>();
 
-        RecyclerView regsList = (RecyclerView) view.findViewById(R.id.regions_list);
-        regsList.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        regsList.setLayoutManager(layoutManager);
-        DividerItemDecoration did = new DividerItemDecoration(regsList.getContext(), layoutManager.getOrientation());
-        regsList.addItemDecoration(did);
+        RegionsAdapter adapter = new RegionsAdapter(getActivity(), Parser.getRegions(path));
+        setListAdapter(adapter);
+    }
 
-        RegionsAdapter adapter = new RegionsAdapter(Parser.getRegions(path));
-        regsList.setAdapter(adapter);
-
-        return view;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_list, container, false);
     }
 }

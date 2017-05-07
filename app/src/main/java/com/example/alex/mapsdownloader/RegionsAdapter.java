@@ -1,32 +1,42 @@
 package com.example.alex.mapsdownloader;
 
-import android.support.v7.widget.RecyclerView;
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
-public class RegionsAdapter extends RecyclerView.Adapter<RegionsAdapter.RegionViewHolder> {
+public class RegionsAdapter extends ArrayAdapter {
 
-    private final List<Region> regions;
+    private Context context;
+    private List regions;
 
-    public RegionsAdapter(List<Region> regions) {
+    public RegionsAdapter(Context context, List regions) {
+        super(context, R.layout.region_list_item, regions);
+        this.context = context;
         this.regions = regions;
     }
 
+    @NonNull
     @Override
-    public RegionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.region_list_item, parent, false);
-        return new RegionViewHolder(v);
-    }
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        ViewHolder holder;
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-    @Override
-    public void onBindViewHolder(RegionViewHolder holder, int position) {
-        Region current = regions.get(position);
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.region_list_item, parent, false);
+            holder = new ViewHolder(convertView);
+            convertView.setTag(holder);
+        } else holder = (ViewHolder) convertView.getTag();
+
+        Region current = (Region) regions.get(position);
 
         if (current.getSubregions().size() > 0) {
             holder.icon.setBackgroundResource(R.mipmap.ic_world_globe_dark);
@@ -35,26 +45,23 @@ public class RegionsAdapter extends RecyclerView.Adapter<RegionsAdapter.RegionVi
             holder.icon.setBackgroundResource(R.mipmap.ic_map);
             if (current.isMap()) {
                 holder.download.setVisibility(View.VISIBLE);
+                holder.download.setFocusable(false);
                 holder.download.setBackgroundResource(R.mipmap.ic_action_import);
             }
         }
 
         holder.title.setText(current.getName());
+
+        return convertView;
     }
 
-    @Override
-    public int getItemCount() {
-        return regions.size();
-    }
-
-    static class RegionViewHolder extends RecyclerView.ViewHolder {
+    private static class ViewHolder {
 
         final ImageView icon;
         final TextView title;
         final ImageButton download;
 
-        RegionViewHolder(View v) {
-            super(v);
+        ViewHolder(View v) {
             icon = (ImageView) v.findViewById(R.id.region_icon_iv);
             title = (TextView) v.findViewById(R.id.region_title_tv);
             download = (ImageButton) v.findViewById(R.id.region_download_ib);
