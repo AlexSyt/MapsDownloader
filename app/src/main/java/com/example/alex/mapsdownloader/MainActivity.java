@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String HOME_SCREEN_TITLE = "Maps Downloader";
     private ArrayList<Integer> path;
     private ArrayList<String> names;
-    private IndicatorFragment indicatorFragment;
+    private MemoryFragment memoryFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +23,14 @@ public class MainActivity extends AppCompatActivity {
         path = new ArrayList<>();
         names = new ArrayList<>();
 
-        indicatorFragment = new IndicatorFragment();
+        memoryFragment = new MemoryFragment();
         RegionsFragment regionsFragment = new RegionsFragment();
         Bundle args = new Bundle();
         args.putIntegerArrayList(KEY, path);
         regionsFragment.setArguments(args);
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.indicator_fragment, indicatorFragment)
+                .add(R.id.indicator_fragment, memoryFragment)
                 .add(R.id.list_fragment, regionsFragment)
                 .commit();
     }
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle(HOME_SCREEN_TITLE);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 getSupportFragmentManager().beginTransaction()
-                        .show(indicatorFragment)
+                        .show(memoryFragment)
                         .commit();
             }
             path.remove(pathSize - 1);
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportFragmentManager().beginTransaction()
-                .hide(indicatorFragment)
+                .hide(memoryFragment)
                 .commit();
         path.add(position);
         names.add(name);
