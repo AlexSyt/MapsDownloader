@@ -1,6 +1,8 @@
 package com.example.alex.mapsdownloader;
 
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StatFs;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
@@ -12,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String HOME_SCREEN_TITLE = "Maps Downloader";
     private ArrayList<Integer> path;
     private ArrayList<String> names;
+    private StatFs statFs;
     private MemoryFragment memoryFragment;
 
     @Override
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         Parser.loadData(this);
         path = new ArrayList<>();
         names = new ArrayList<>();
+        statFs = new StatFs(Environment.getDataDirectory().getAbsolutePath());
 
         memoryFragment = new MemoryFragment();
         RegionsFragment regionsFragment = new RegionsFragment();
@@ -85,5 +89,13 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.list_fragment, next)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    public double getInternalSpace() {
+        return (double) (statFs.getBlockCountLong() * statFs.getBlockSizeLong()) / 1024 / 1024 / 1024;
+    }
+
+    public double getInternalFreeSpace() {
+        return (double) (statFs.getAvailableBlocksLong() * statFs.getBlockSizeLong()) / 1024 / 1024 / 1024;
     }
 }
