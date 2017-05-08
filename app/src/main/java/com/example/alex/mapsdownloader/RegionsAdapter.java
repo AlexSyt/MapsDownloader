@@ -43,7 +43,7 @@ public class RegionsAdapter extends ArrayAdapter {
             holder.download.setVisibility(View.GONE);
         } else {
             holder.icon.setBackgroundResource(R.mipmap.ic_map);
-            if (current.isMap()) {
+            if (current.hasMap()) {
                 holder.download.setVisibility(View.VISIBLE);
                 holder.download.setFocusable(false);
                 holder.download.setBackgroundResource(R.mipmap.ic_action_import);

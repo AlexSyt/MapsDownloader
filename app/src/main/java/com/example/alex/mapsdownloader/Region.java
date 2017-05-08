@@ -22,23 +22,31 @@ public class Region implements Comparable<Region> {
         this.name = name;
     }
 
-    public String getDownloadPrefix() {
-        return downloadPrefix;
+    private String getDownloadPrefix() {
+        if (downloadPrefix != null) return downloadPrefix;
+        else {
+            if (parent == null) return null;
+            return parent.getDownloadPrefix();
+        }
     }
 
     public void setDownloadPrefix(String downloadPrefix) {
         this.downloadPrefix = downloadPrefix;
     }
 
-    public String getDownloadSuffix() {
-        return downloadSuffix;
+    private String getDownloadSuffix() {
+        if (downloadSuffix != null) return downloadSuffix;
+        else {
+            if (parent == null) return null;
+            return parent.getDownloadSuffix();
+        }
     }
 
     public void setDownloadSuffix(String downloadSuffix) {
         this.downloadSuffix = downloadSuffix;
     }
 
-    public boolean isMap() {
+    public boolean hasMap() {
         return map;
     }
 
@@ -61,6 +69,27 @@ public class Region implements Comparable<Region> {
     public void addSubregion(Region subregion) {
         subregions.add(subregion);
         Collections.sort(subregions);
+    }
+
+    public String getDownloadPath() {
+        if (subregions.size() == 0 && map) {
+            StringBuilder result = new StringBuilder();
+            String prefix = getDownloadPrefix();
+            String suffix = getDownloadSuffix();
+
+            if (prefix != null) {
+                result.append(prefix);
+                result.append("_");
+            }
+            result.append(name);
+            if (suffix != null) {
+                result.append("_");
+                result.append(suffix);
+            }
+            result.append("_2.obf.zip");
+
+            return result.toString();
+        } else return null;
     }
 
     @Override
