@@ -2,8 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#eaeaea"
     android:orientation="vertical"
-    tools:context="com.example.alex.mapsdownloader.MemoryFragment">
+    tools:context="com.example.alex.mapsdownloader.fragments.MemoryFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -50,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/memory_tv"
                 android:layout_marginTop="8dp"
-                android:progressDrawable="@drawable/progress_bar" />
+                android:progressDrawable="@drawable/progress_bar_memory" />
         </RelativeLayout>
 
     </FrameLayout>

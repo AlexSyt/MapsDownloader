@@ -1,4 +1,4 @@
-package com.example.alex.mapsdownloader;
+package com.example.alex.mapsdownloader.models;
 
 import android.support.annotation.NonNull;
 
@@ -12,7 +12,7 @@ public class Region implements Comparable<Region> {
     private String downloadSuffix;
     private boolean map = true;
     private Region parent;
-    private ArrayList<Region> subregions = new ArrayList<>();
+    private final ArrayList<Region> subregions = new ArrayList<>();
 
     public String getName() {
         return name;

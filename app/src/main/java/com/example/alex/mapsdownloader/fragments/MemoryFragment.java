@@ -1,4 +1,4 @@
-package com.example.alex.mapsdownloader;
+package com.example.alex.mapsdownloader.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.example.alex.mapsdownloader.R;
+import com.example.alex.mapsdownloader.activities.MainActivity;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

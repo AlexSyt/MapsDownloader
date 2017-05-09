@@ -1,4 +1,4 @@
-package com.example.alex.mapsdownloader;
+package com.example.alex.mapsdownloader.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,12 +11,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.alex.mapsdownloader.R;
+import com.example.alex.mapsdownloader.models.Region;
+
 import java.util.List;
 
 public class RegionsAdapter extends ArrayAdapter {
 
-    private Context context;
-    private List regions;
+    private final Context context;
+    private final List regions;
 
     public RegionsAdapter(Context context, List regions) {
         super(context, R.layout.region_list_item, regions);
