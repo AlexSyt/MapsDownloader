@@ -22,6 +22,10 @@ public class Region implements Comparable<Region> {
         this.name = name;
     }
 
+    public String getFileName() {
+        return name + ".obf.zip";
+    }
+
     private String getDownloadPrefix() {
         if (downloadPrefix != null) return downloadPrefix;
         else {

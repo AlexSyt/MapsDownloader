@@ -10,6 +10,7 @@ import android.widget.ListView;
 import com.example.alex.mapsdownloader.R;
 import com.example.alex.mapsdownloader.activities.MainActivity;
 import com.example.alex.mapsdownloader.adapters.RegionsAdapter;
+import com.example.alex.mapsdownloader.data.MapDownloader;
 import com.example.alex.mapsdownloader.data.Parser;
 import com.example.alex.mapsdownloader.models.Region;
 
@@ -52,6 +53,8 @@ public class RegionsFragment extends android.support.v4.app.ListFragment {
         Region current = regions.get(position);
         if (current.getSubregions().size() > 0) {
             ((MainActivity) getActivity()).showNextRegionFragment(position, current.getName());
+        } else if (current.hasMap()) {
+            MapDownloader.download(current, getContext());
         }
     }
 }

@@ -6,9 +6,9 @@ import android.os.StatFs;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.example.alex.mapsdownloader.fragments.MemoryFragment;
-import com.example.alex.mapsdownloader.data.Parser;
 import com.example.alex.mapsdownloader.R;
+import com.example.alex.mapsdownloader.data.Parser;
+import com.example.alex.mapsdownloader.fragments.MemoryFragment;
 import com.example.alex.mapsdownloader.fragments.RegionsFragment;
 
 import java.util.ArrayList;
