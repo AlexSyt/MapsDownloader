@@ -1,9 +1,12 @@
-package com.example.alex.mapsdownloader;
+package com.example.alex.mapsdownloader.data;
 
 import android.content.Context;
 import android.content.res.XmlResourceParser;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import com.example.alex.mapsdownloader.R;
+import com.example.alex.mapsdownloader.models.Region;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;

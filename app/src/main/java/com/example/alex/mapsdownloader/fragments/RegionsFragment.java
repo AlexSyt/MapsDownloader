@@ -1,4 +1,4 @@
-package com.example.alex.mapsdownloader;
+package com.example.alex.mapsdownloader.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+
+import com.example.alex.mapsdownloader.R;
+import com.example.alex.mapsdownloader.activities.MainActivity;
+import com.example.alex.mapsdownloader.adapters.RegionsAdapter;
+import com.example.alex.mapsdownloader.data.Parser;
+import com.example.alex.mapsdownloader.models.Region;
 
 import java.util.ArrayList;
 import java.util.List;
