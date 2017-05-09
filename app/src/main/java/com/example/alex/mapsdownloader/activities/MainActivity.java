@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         regionsFragment.setArguments(args);
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.indicator_fragment, memoryFragment)
+                .add(R.id.memory_fragment, memoryFragment)
                 .add(R.id.list_fragment, regionsFragment)
                 .commit();
     }
