@@ -65,6 +65,7 @@ public class Parser {
                     String downloadSuffix = parser.getAttributeValue(null, "download_suffix");
                     String innDownloadPrefix = parser.getAttributeValue(null, "inner_download_prefix");
                     String innDownloadSuffix = parser.getAttributeValue(null, "inner_download_suffix");
+                    String type = parser.getAttributeValue(null, "type");
                     String map = parser.getAttributeValue(null, "map");
 
                     if (name != null) {
@@ -73,18 +74,19 @@ public class Parser {
                     if (downloadPrefix != null) newReg.setDownloadPrefix(downloadPrefix);
                     if (innDownloadPrefix != null) {
                         if (innDownloadPrefix.equals("$name")) {
-                            newReg.setDownloadPrefix(name);
-                        } else newReg.setDownloadPrefix(innDownloadPrefix);
+                            newReg.setInnDownloadPrefix(name);
+                        } else newReg.setInnDownloadPrefix(innDownloadPrefix);
                     }
                     if (downloadSuffix != null) newReg.setDownloadSuffix(downloadSuffix);
-                    if (innDownloadSuffix != null) newReg.setDownloadSuffix(innDownloadSuffix);
+                    if (innDownloadSuffix != null) newReg.setInnDownloadSuffix(innDownloadSuffix);
                     if (map != null && map.equals("no")) newReg.setMap(false);
 
                     if (parser.getDepth() == 2) {
                         regions.add(newReg);
                         Collections.sort(regions);
                     } else {
-                        current.addSubregion(newReg);
+                        if (type == null) current.addSubregion(newReg);
+                        else if (!type.equals("srtm")) current.addSubregion(newReg);
                         newReg.setParent(current);
                     }
                     current = newReg;

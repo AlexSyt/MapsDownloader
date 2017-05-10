@@ -8,6 +8,8 @@ import java.util.Collections;
 public class Region implements Comparable<Region> {
 
     private String name;
+    private String innDownloadPrefix;
+    private String innDownloadSuffix;
     private String downloadPrefix;
     private String downloadSuffix;
     private boolean map = true;
@@ -26,28 +28,36 @@ public class Region implements Comparable<Region> {
         return name + ".obf.zip";
     }
 
-    private String getDownloadPrefix() {
-        if (downloadPrefix != null) return downloadPrefix;
-        else {
-            if (parent == null) return null;
-            return parent.getDownloadPrefix();
-        }
+    public void setInnDownloadPrefix(String innDownloadPrefix) {
+        this.innDownloadPrefix = innDownloadPrefix;
+    }
+
+    public void setInnDownloadSuffix(String innDownloadSuffix) {
+        this.innDownloadSuffix = innDownloadSuffix;
     }
 
     public void setDownloadPrefix(String downloadPrefix) {
         this.downloadPrefix = downloadPrefix;
     }
 
-    private String getDownloadSuffix() {
-        if (downloadSuffix != null) return downloadSuffix;
-        else {
-            if (parent == null) return null;
-            return parent.getDownloadSuffix();
-        }
-    }
-
     public void setDownloadSuffix(String downloadSuffix) {
         this.downloadSuffix = downloadSuffix;
+    }
+
+    private String getPrefix() {
+        if (innDownloadPrefix != null && downloadPrefix != null) return innDownloadPrefix;
+        if (innDownloadPrefix == null && downloadPrefix != null) return downloadPrefix;
+        if (innDownloadPrefix != null) return innDownloadPrefix;
+        if (parent != null) return parent.getPrefix();
+        return null;
+    }
+
+    private String getSuffix() {
+        if (innDownloadSuffix != null && downloadSuffix != null) return innDownloadSuffix;
+        if (innDownloadSuffix == null && downloadSuffix != null) return downloadSuffix;
+        if (innDownloadSuffix != null) return innDownloadSuffix;
+        if (parent != null) return parent.getSuffix();
+        return null;
     }
 
     public boolean hasMap() {
@@ -78,8 +88,12 @@ public class Region implements Comparable<Region> {
     public String getDownloadPath() {
         if (subregions.size() == 0 && map) {
             StringBuilder result = new StringBuilder();
-            String prefix = getDownloadPrefix();
-            String suffix = getDownloadSuffix();
+            String prefix;
+            String suffix;
+            if (downloadPrefix != null) prefix = downloadPrefix;
+            else prefix = parent.getPrefix();
+            if (downloadSuffix != null) suffix = downloadSuffix;
+            else suffix = parent.getSuffix();
 
             if (prefix != null) {
                 result.append(prefix);
