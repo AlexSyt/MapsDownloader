@@ -59,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
         } else return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * This is the method for displaying the previous Region on listview. Controls the title of the
+     * action bar and displays a fragment with a free memory if needed.
+     */
     private void showPreviousRegionFragment() {
         int pathSize = path.size();
         if (pathSize > 0) {
@@ -76,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This is the method for displaying the next Region on listview. Controls the title of the
+     * action bar and hides a fragment with a free memory.
+     */
     public void showNextRegionFragment(int position, String name) {
         getSupportActionBar().setTitle(name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -96,10 +104,16 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
+    /**
+     * @return the total memory space in GB.
+     */
     public double getInternalSpace() {
         return (double) (statFs.getBlockCountLong() * statFs.getBlockSizeLong()) / 1024 / 1024 / 1024;
     }
 
+    /**
+     * @return the free memory space in GB.
+     */
     public double getInternalFreeSpace() {
         return (double) (statFs.getAvailableBlocksLong() * statFs.getBlockSizeLong()) / 1024 / 1024 / 1024;
     }

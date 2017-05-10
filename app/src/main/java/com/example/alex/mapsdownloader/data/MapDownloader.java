@@ -48,6 +48,9 @@ public class MapDownloader {
                 progress.show();
             }
 
+            /**
+             * Downloads the map file and save it in Download folder.
+             */
             @Override
             protected Void doInBackground(Void... params) {
                 try {
@@ -100,6 +103,9 @@ public class MapDownloader {
                 super.onPostExecute(aVoid);
             }
 
+            /**
+             * Deletes the map file if download was cancelled.
+             */
             @Override
             protected void onCancelled(Void aVoid) {
                 new File(DOWNLOADS_DIRECTORY_PATH + "/" + region.getFileName()).delete();

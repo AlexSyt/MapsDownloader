@@ -47,6 +47,10 @@ public class RegionsFragment extends android.support.v4.app.ListFragment {
         return inflater.inflate(R.layout.fragment_regions, container, false);
     }
 
+    /**
+     * If the pressed region has subregions, the subregions are displayed in a new listview.
+     * Otherwise, loading of the map for the pressed region begins.
+     */
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);

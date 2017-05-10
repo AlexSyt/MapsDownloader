@@ -25,6 +25,13 @@ public class Parser {
         if (regions == null) parse(context);
     }
 
+    /**
+     * This method is needed in order to obtain a list of subregions of the region selected in the
+     * listview. This in order not to implement parcelable in Region.
+     *
+     * @param path list of indexes of transitions in the listview of regions.
+     * @return subregions of the region, which is defined in the path, if any; otherwise null.
+     */
     @Nullable
     public static ArrayList<Region> getRegions(List<Integer> path) {
         if (path.size() == 0 || regions == null) return regions;
@@ -38,6 +45,9 @@ public class Parser {
         }
     }
 
+    /**
+     * Converts a xml with data to a list of regions with a nested structure.
+     */
     private static void parse(Context context) {
         regions = new ArrayList<>();
         XmlResourceParser parser = context.getResources().getXml(R.xml.data);
