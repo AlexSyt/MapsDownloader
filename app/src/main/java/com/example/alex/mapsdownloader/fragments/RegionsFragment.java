@@ -1,5 +1,6 @@
 package com.example.alex.mapsdownloader.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.alex.mapsdownloader.R;
+import com.example.alex.mapsdownloader.Services.MyDownloadService;
 import com.example.alex.mapsdownloader.activities.MainActivity;
 import com.example.alex.mapsdownloader.adapters.RegionsAdapter;
-import com.example.alex.mapsdownloader.data.MapDownloader;
 import com.example.alex.mapsdownloader.data.Parser;
 import com.example.alex.mapsdownloader.models.Region;
 
@@ -19,6 +20,8 @@ import java.util.List;
 
 public class RegionsFragment extends android.support.v4.app.ListFragment {
 
+    public static final String KEY_MAP_PATH = "map_path";
+    public static final String KEY_NAME = "name";
     private static final String KEY = "path";
     private ArrayList<Integer> path;
     private List<Region> regions;
@@ -58,7 +61,10 @@ public class RegionsFragment extends android.support.v4.app.ListFragment {
         if (current.getSubregions().size() > 0) {
             ((MainActivity) getActivity()).showNextRegionFragment(position, current.getName());
         } else if (current.hasMap()) {
-            MapDownloader.download(current, getContext());
+            Intent intent = new Intent(getContext(), MyDownloadService.class);
+            intent.putExtra(KEY_MAP_PATH, current.getDownloadPath());
+            intent.putExtra(KEY_NAME, current.getFileName());
+            getActivity().startService(intent);
         }
     }
 }
