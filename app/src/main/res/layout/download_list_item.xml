@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/region_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/cancel_download_ib"
+        android:textColor="#212121"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/download_progress_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/region_title_tv"
+        android:layout_toStartOf="@+id/cancel_download_ib" />
+
+    <ProgressBar
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/download_progress_tv"
+        android:layout_toStartOf="@+id/cancel_download_ib" />
+
+    <ImageButton
+        android:id="@+id/cancel_download_ib"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"
+        android:src="@mipmap/ic_action_remove_dark" />
+
+</RelativeLayout>
